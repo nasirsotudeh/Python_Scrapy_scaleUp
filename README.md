@@ -1,3 +1,4 @@
+
 ##scrapy news pages python
 This is an exercise to scrap RSS news with python and scale up in docker 
  

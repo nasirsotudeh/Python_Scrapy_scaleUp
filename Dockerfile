@@ -11,10 +11,7 @@ ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python"]
 CMD ["app.py"]
-# install dependencies
-
 # command to run on container start
-
 FROM postgres:latest As PG_DB
 # add the 'postgres' admin role
 # expose Postgres port
