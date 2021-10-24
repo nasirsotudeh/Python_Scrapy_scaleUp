@@ -30,7 +30,6 @@ class RSSFinder():
 
     def Process_IN_Tags(self, HTML, URL):
         """
-
         :param HTML: HTML of base site to scrap tags
         :param URL: get base url to attach href of rss
         :return:  list of objects contain rss url and title of rss maybe category's of news
@@ -40,17 +39,16 @@ class RSSFinder():
         for Tag in Tags:
             href = Tag.get("href", None)
             if href:
-                if "xml" in href or "rss" in href or "feed" in href:
-                    Valid_Feeds.append(URL + href)
+                if "xml" in href or "rss" in href or "feed" in href or str(Tag).find('rss') > 1:
                     Rss_URL = URL + href
                     URL_Titel = Tag.get("title", None)
                     item = (Rss_URL, URL_Titel)
                     Valid_Feeds.append(item)
-            return Valid_Feeds
+
+        return Valid_Feeds
 
     def Extract_URLs(self, site):
         """
-
         :rtype: get base url to attach scheme
         """
         URL_Extract = urllib.parse.urlparse(site)
@@ -59,23 +57,23 @@ class RSSFinder():
 
     def Find_Feeds(self, site):
         """
-
         :rtype: get base url to get html content and scrap rss in links and tags
                 contain Error handling in send requests
         """
-        URL_Parsed = self.Extract_URLs(site)
+        # URL_Parsed = self.Extract_URLs(site)
         try:
             raw = requests.get(site).text
             html = bs4(raw)
-        except Exception:
-            print(Exception)
+            Alternate_urls = html.findAll("link", rel="alternate")
+            try:
+                Valid_Feeds = (self.Process_Feed_URL(Alternate_urls) + self.Process_IN_Tags(html, site))
+                return Valid_Feeds
+            except Exception:
+                print(Exception)
+        except HTTPError:
+            print(HTTPError)
 
-        Alternate_urls = html.findAll("link", rel="alternate")
 
-        try:
-            Valid_Feeds = (self.Process_Feed_URL(Alternate_urls) + self.Process_IN_Tags(html, URL_Parsed))
 
-        except Exception:
-            print(Exception)
-
-        return Valid_Feeds
+if __name__ == '__main__':
+    print(RSSFinder().Find_Feeds('https://www.farsnews.ir'))
