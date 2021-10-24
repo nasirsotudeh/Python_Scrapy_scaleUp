@@ -2,9 +2,15 @@ scrapy news pages python
 =======
 scrapy news pages python
 
-This is an exercise to scrap RSS news with python and scale up in docker 
- 
+##### This is an exercise to scrap RSS news with python and scale up in docker 
+RSS stands for Really Simple Syndication, and it’s is a simple, standardized content distribution method that can help you stay up-to-date with your favorite newscasts, blogs, websites, and social media channels. 
+Instead of visiting sites to find new posts or subscribing to sites to receive notification of new posts, [find the RSS feed on a website and read new posts](https://www.lifewire.com/find-an-rss-feed-on-a-website-3486647) in an RSS reader.  
 
+
+
+
+
+# Docker
 build images stages:
 ```
 docker build --target pythonApp -t python/app:test .
