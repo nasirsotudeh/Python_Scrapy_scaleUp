@@ -4,3 +4,6 @@ CREATE TABLE public.source_links (
     rss varchar(255),
     status varchar(255)
 );
+
+
+
