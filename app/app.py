@@ -1,13 +1,11 @@
-import time
-import random
-
 from sqlalchemy import create_engine
+from RSSFinder.RSS_Finder import RSS_Finder
 
-db_name = 'source_links'
-db_user = 'pgs'
-db_pass = '123456'
-db_host = '172.17.0.2'
-db_port = '5432'
+db_name = ''
+db_user = ''
+db_pass = ''
+db_host = ''
+db_port = ''
 
 # Connecto to the database
 db_string = 'postgresql://{}:{}@{}:{}/{}'.format(db_user, db_pass, db_host, db_port, db_name)
@@ -17,9 +15,8 @@ db = create_engine(db_string)
 def get_last_row():
     # Retrieve the last number inserted inside the 'numbers'
     query = "" + \
-            "SELECT links " + \
-            "FROM source_links " + \
-            "WHERE timestamp >= (SELECT max(timestamp) FROM numbers)" + \
+            "SELECT links , rss " + \
+            "FROM web_links " + \
             "LIMIT 1"
 
     result_set = db.execute(query)
@@ -28,7 +25,7 @@ def get_last_row():
 
 
 if __name__ == '__main__':
-    print('Application started')
-    while True:
-        print('The last value insterted is: {}'.format(get_last_row()))
-        time.sleep(5)
+
+    link = get_last_row()
+    print(link)
+    rss = RSS_Finder('http://www.farsnews.ir').Find_Feeds()

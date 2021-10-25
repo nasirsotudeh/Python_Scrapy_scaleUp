@@ -7,11 +7,14 @@ import urllib.parse
 from requests import HTTPError, ConnectionError
 
 
-class RSSFinder():
+class RSS_Finder(object):
+
+    def __init__(self , url):
+        self.url = url
+        self.rss = self.Find_Feeds()
 
     def Process_Feed_URL(self, feed_urls):
         """
-
         :param feed_urls: List of URls base site
         :return: list of objects contain rss url and title of rss maybe category's of news
         """
@@ -55,12 +58,13 @@ class RSSFinder():
         URL_Parsed = URL_Extract.scheme + "://" + URL_Extract.hostname
         return URL_Parsed
 
-    def Find_Feeds(self, site):
+    def Find_Feeds(self):
         """
         :rtype: get base url to get html content and scrap rss in links and tags
                 contain Error handling in send requests
         """
         # URL_Parsed = self.Extract_URLs(site)
+        site = self.url
         try:
             raw = requests.get(site).text
             html = bs4(raw)
@@ -72,8 +76,3 @@ class RSSFinder():
                 print(Exception)
         except HTTPError:
             print(HTTPError)
-
-
-
-if __name__ == '__main__':
-    print(RSSFinder().Find_Feeds('https://www.farsnews.ir'))
