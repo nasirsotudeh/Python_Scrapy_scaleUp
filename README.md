@@ -9,7 +9,7 @@ Instead of visiting sites to find new posts or subscribing to sites to receive n
 
 ## RSSFinder 
 
->RSSFinder get list or base url of site and it can find all rss links in tags ans urls in homepage 
+>RSSFinder get list or base url of site and it can find all rss links in tags and urls in homepage 
 
 ```
 from RSSFinder.RSS_Finder import RSS_Finder
