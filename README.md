@@ -17,14 +17,35 @@ RSSFinder().Find_Feeds('https://www.farsnews.ir')
 ```
 
 # Docker
+####docker-compose:
+run 
+```` 
+docker-compose up
+````
+contain networks app-tier to create bridge and static IPv4 with subnet
+```
+    ipam:
+      config:
+        - subnet: 172.23.0.2/24
+```
+services database build Image Dockerfile from ./Database with static IPv.
+```
+networks:
+      app-tier:
+          ipv4_address: 172.23.0.2
+```
+we set database environment in docker-compose.yml to create user .
+Dockerfile from ./Database create tables automaticly from /docker-entrypoint-initdb.d
+`COPY ./sql/*.sql /docker-entrypoint-initdb.d/`
+
+
+
 build images stages:
 ```
 docker build --target pythonApp -t python/app:test .
-docker build --target PG_DB -t postgres/DB:test .
+cd Database/ && docker build --target PG_DB -t postgres/db:test .
 ```
 bind database IP address
-
-
 ````
 docker inspect {docker contaner id database} | grep IPAddress
 ````

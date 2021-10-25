@@ -1,23 +1,22 @@
 from sqlalchemy import create_engine
 from RSSFinder.RSS_Finder import RSS_Finder
 
-db_name = ''
-db_user = ''
-db_pass = ''
-db_host = ''
-db_port = ''
+db_name = 'RSS_DB'
+db_user = 'nasir'
+db_pass = '123456'
+db_host = '172.23.0.2'
+db_port = '5432'
 
 # Connecto to the database
-db_string = 'postgresql://{}:{}@{}:{}/{}'.format(db_user, db_pass, db_host, db_port, db_name)
+db_string = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(db_user, db_pass, db_host, db_port, db_name)
 db = create_engine(db_string)
 
 
 def get_last_row():
     # Retrieve the last number inserted inside the 'numbers'
-    query = "" + \
-            "SELECT links , rss " + \
-            "FROM web_links " + \
-            "LIMIT 1"
+    query ="SELECT * " + \
+            "FROM Web_links " + \
+            "LIMIT 4"
 
     result_set = db.execute(query)
     for (r) in result_set:

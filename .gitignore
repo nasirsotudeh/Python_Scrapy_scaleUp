@@ -1,4 +1,7 @@
 scrap-dev
-gitconf
 .gitignore
+gitconf
 .idea
+scrapdev
+*.pyc
+*.cpython-38.pyc

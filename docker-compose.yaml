@@ -1,0 +1,23 @@
+version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.2/24
+
+services:
+  database:
+    build:
+      context: ./Database
+      dockerfile: Dockerfile
+    networks:
+      app-tier:
+          ipv4_address: 172.23.0.2
+    environment:   # Set up postgres database name and password
+      - POSTGRES_USER=nasir
+      - POSTGRES_DB=RSS_DB
+      - POSTGRES_PASSWORD=123456
+
+
