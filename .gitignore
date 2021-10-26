@@ -3,3 +3,6 @@ scrapdev
 gitconf
 .idea
 /scrapdev/
+/RSSFinder/__pycache__/RSS_Finder.cpython-38.pyc
+/RSSFinder/__pycache__/__init__.cpython-38.pyc
+.idea/misc.xml

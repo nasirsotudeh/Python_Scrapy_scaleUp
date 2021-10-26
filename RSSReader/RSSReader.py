@@ -8,6 +8,7 @@ class RSSReader():
     def RSS_TO_Dict(self ,rss):
         article_list = []
         for a in rss:
+            print(a)
             title = a.find('title').text
             link = a.find('link').text
             published = a.find('pubDate').text
@@ -26,9 +27,10 @@ class RSSReader():
             soup = BeautifulSoup(r.content, features='xml')
             articles = soup.findAll('item')
             if articles:
-                self.RSS_TO_Dict(articles)
+               return self.RSS_TO_Dict(articles)
 
         except ConnectionError as conn:
-            print(conn)
+            print('Check url or internet connection')
 
-
+        except:
+            print('something wrong in find items rss ')

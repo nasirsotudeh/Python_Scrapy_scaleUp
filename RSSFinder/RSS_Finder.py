@@ -42,8 +42,10 @@ class RSS_Finder(object):
         for Tag in Tags:
             href = Tag.get("href", None)
             if href:
-                if "xml" in href or "rss" in href or "feed" in href or str(Tag).find('rss') > 1:
+                if "xml" in href or "rss" in href or str(Tag).find('rss') > 1:
                     Rss_URL = URL + href
+                    print(URL)
+                    print(href)
                     URL_Titel = Tag.get("title", None)
                     item = (Rss_URL, URL_Titel)
                     Valid_Feeds.append(item)
@@ -73,6 +75,6 @@ class RSS_Finder(object):
                 Valid_Feeds = (self.Process_Feed_URL(Alternate_urls) + self.Process_IN_Tags(html, site))
                 return Valid_Feeds
             except Exception:
-                print(Exception)
-        except HTTPError:
-            print(HTTPError)
+                print('Check url or internet connection')
+        except:
+            print('HTTPError '  + 'Check url or internet connection')
