@@ -27,7 +27,7 @@ class RSS_Finder(object):
                     if "rss" in Application_Type or "xml" in Application_Type:
                         href = feed_url.get("href", None)
                         URL_Titel = feed_url.get("title", None)
-                        item = (href, URL_Titel)
+                        item = [href, URL_Titel]
                         Valid_feeds.append(item)
         return Valid_feeds
 
@@ -47,7 +47,7 @@ class RSS_Finder(object):
                     print(URL)
                     print(href)
                     URL_Titel = Tag.get("title", None)
-                    item = (Rss_URL, URL_Titel)
+                    item = [Rss_URL, URL_Titel]
                     Valid_Feeds.append(item)
 
         return Valid_Feeds
@@ -72,7 +72,7 @@ class RSS_Finder(object):
             html = bs4(raw)
             Alternate_urls = html.findAll("link", rel="alternate")
             try:
-                Valid_Feeds = (self.Process_Feed_URL(Alternate_urls) + self.Process_IN_Tags(html, site))
+                Valid_Feeds = self.Process_Feed_URL(Alternate_urls) + self.Process_IN_Tags(html, site)
                 return Valid_Feeds
             except Exception:
                 print('Check url or internet connection')
